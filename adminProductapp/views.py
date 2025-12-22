@@ -5,6 +5,7 @@ from productsapp.models import ProductCategory
 from productsapp.serializers import ProductSerializer,ProductCategorySerializer
 from rest_framework import viewsets,status
 from rest_framework.response import Response
+from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.views import APIView
 from django.db.models import Q
 from rest_framework.pagination import PageNumberPagination
@@ -48,6 +49,7 @@ class AdminCategoryView(APIView):
     
 class AdminProductAddView(APIView):
     permission_classes=[IsAdminUser]
+    parser_classes = (MultiPartParser, FormParser)
     def post(self,request):
         serializerr = ProductSerializer(data = request.data)
 
@@ -59,6 +61,7 @@ class AdminProductAddView(APIView):
 
 class AdminProductEditView(APIView):
     permission_classes = [IsAdminUser]
+    parser_classes = (MultiPartParser, FormParser)
 
     def get(self, request, pk):
         try:
