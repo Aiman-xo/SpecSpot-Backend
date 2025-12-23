@@ -51,10 +51,13 @@ class AdminProductAddView(APIView):
     permission_classes=[IsAdminUser]
     parser_classes = (MultiPartParser, FormParser)
     def post(self,request):
+        print("FILES >>>", request.FILES)
+        print("DATA >>>", request.data)
         serializerr = ProductSerializer(data = request.data)
 
         if serializerr.is_valid():
-            serializerr.save()
+            obj = serializerr.save()
+            print("SAVED IMAGE >>>", obj.image) 
             return Response({"message": "Product added!"}, status=201)
         return Response(serializerr.errors, status=400)
     
