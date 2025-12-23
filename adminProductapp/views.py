@@ -51,7 +51,7 @@ class AdminProductAddView(APIView):
     permission_classes=[IsAdminUser]
     parser_classes = (MultiPartParser, FormParser)
     def post(self,request):
-        serializerr = ProductSerializer(data = request.data)
+        serializerr = ProductSerializer(data = request.data,context={"request": request})
 
         if serializerr.is_valid():
             serializerr.save()
