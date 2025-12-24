@@ -8,8 +8,7 @@ class ProductCategorySerializer(serializers.ModelSerializer):
 
 class ProductSerializer(serializers.ModelSerializer):
     category_name = serializers.StringRelatedField(source="category", read_only=True)
-    image = serializers.ImageField(required = False)
-    #image=serializers.SerializerMethodField()
+    image=serializers.ImageField(required = False)
 
     class Meta:
         model = Products
@@ -36,4 +35,3 @@ class ProductSerializer(serializers.ModelSerializer):
             data["image"] = request.build_absolute_uri(instance.image.url)
 
         return data
-    
