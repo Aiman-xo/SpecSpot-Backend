@@ -107,8 +107,6 @@ class CookieTokenRefreshView(APIView):
         print('refresh_token',refresh_token)
         if not refresh_token:
             return Response({'error':'refresh token missing'},status=400)
-        
-        print('refresh_token',refresh_token)
 
         try:
             token = RefreshToken(refresh_token)
