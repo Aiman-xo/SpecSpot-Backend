@@ -8,8 +8,8 @@ class ProductCategorySerializer(serializers.ModelSerializer):
 
 class ProductSerializer(serializers.ModelSerializer):
     category_name = serializers.StringRelatedField(source="category", read_only=True)
-    # image = serializers.ImageField(use_url=True)
-    image=serializers.SerializerMethodField()
+    image = serializers.ImageField(required = False)
+    #image=serializers.SerializerMethodField()
 
     class Meta:
         model = Products
@@ -28,8 +28,12 @@ class ProductSerializer(serializers.ModelSerializer):
             "created_at",
         ]
 
-    def get_image(self,obj):
-        if obj.image:
-            return obj.image.url
-        return None
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        request = self.context.get("request")
+
+        if instance.image and request:
+            data["image"] = request.build_absolute_uri(instance.image.url)
+
+        return data
     

@@ -1,3 +1,15 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Django
+staticfiles/
+media/
+
+# Env
+venv/
 .env
 
-specsenv/
+# Logs
+*.log
